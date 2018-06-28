@@ -1,0 +1,25 @@
+{
+  "name": "invictus-deezer-assignment-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "node-dev .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/cors": "^2.2.1",
+    "dotenv": "^6.0.0",
+    "koa": "^2.5.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "mysql2": "^1.5.3",
+    "node-dev": "^3.1.3",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5"
+  }
+}

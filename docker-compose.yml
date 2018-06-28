@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    environment:
+      NODE_ENV: development
+    ports:
+      - "8080:8080"
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_USER: invictus
+      MYSQL_PASSWORD: invictus
+      MYSQL_DATABASE: invictus
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql # map the db to a local directory for easier switching between multiple projects and clearing db
