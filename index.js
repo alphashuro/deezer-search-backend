@@ -7,27 +7,7 @@ const cors = require("@koa/cors");
 const request = require("request-promise-native");
 const querystring = require("querystring");
 
-const credentials = {
-  client: {
-    id: process.env.DEEZER_CLIENT_ID,
-    secret: process.env.DEEZER_CLIENT_SECRET
-  },
-  auth: {
-    tokenHost: "https://connect.deezer.com/oauth/auth.php"
-  }
-};
-
 const router = new Router();
-
-router.get("/auth", ctx => {
-  const appId = process.env.DEEZER_APP_ID;
-  const redirect = encodeURIComponent(process.env.DEEZER_REDIRECT);
-  const perms = "basic_access";
-
-  ctx.redirect(
-    `https://connect.deezer.com/oauth/auth.php?app_id=${appId}&redirect_uri=${redirect}&perms=${perms}`
-  );
-});
 
 router.get("/callback", async ctx => {
   const appId = process.env.DEEZER_APP_ID;
@@ -45,20 +25,33 @@ router.get("/callback", async ctx => {
 });
 
 router.get("/search", async ctx => {
-  const token = ctx.headers.authorization.replace("Bearer ", "");
   const artist = ctx.query.q;
 
   const artists = request({
     uri: `https://api.deezer.com/search/artist`,
     qs: {
       q: artist,
-      access_token: token,
       limit: 5
     }
   });
 
   ctx.body = artists;
   ctx.status = 200;
+});
+
+router.get("/:id/albums", async ctx => {
+  const { id } = ctx.params;
+
+  const albums = request(`https://api.deezer.com/artist/${id}/albums`);
+
+  ctx.body = albums;
+  ctx.status = 200;
+});
+
+router.get("/album/:id/tracks", async ctx => {
+  const { id } = ctx.params;
+
+  const albums = request({});
 });
 
 const app = new Koa();
