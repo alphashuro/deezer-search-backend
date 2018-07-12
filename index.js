@@ -44,6 +44,22 @@ router.get("/callback", async ctx => {
   ctx.body = result.access_token;
 });
 
+router.get("/search", async ctx => {
+  const token = ctx.headers.authorization.replace("Bearer ", "");
+  const artist = ctx.query.q;
+
+  const artists = request({
+    uri: `https://api.deezer.com/search/artist`,
+    qs: {
+      q: artist,
+      access_token: token
+    }
+  });
+
+  ctx.body = artists;
+  ctx.status = 200;
+});
+
 const app = new Koa();
 
 app.use(logger());
