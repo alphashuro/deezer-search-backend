@@ -52,7 +52,8 @@ router.get("/search", async ctx => {
     uri: `https://api.deezer.com/search/artist`,
     qs: {
       q: artist,
-      access_token: token
+      access_token: token,
+      limit: 5
     }
   });
 
